@@ -4,7 +4,7 @@
 #
 Name     : dconf
 Version  : 0.26.0
-Release  : 1
+Release  : 2
 URL      : https://download.gnome.org/core/3.21/3.21.4/sources/dconf-0.26.0.tar.xz
 Source0  : https://download.gnome.org/core/3.21/3.21.4/sources/dconf-0.26.0.tar.xz
 Summary  : dconf client library
@@ -118,8 +118,8 @@ rm -rf %{buildroot}
 /usr/include/dconf/common/dconf-enums.h
 /usr/include/dconf/common/dconf-paths.h
 /usr/include/dconf/dconf.h
-/usr/lib64/*.so
-/usr/lib64/pkgconfig/*.pc
+/usr/lib64/libdconf.so
+/usr/lib64/pkgconfig/dconf.pc
 
 %files doc
 %defattr(-,root,root,-)
@@ -155,5 +155,6 @@ rm -rf %{buildroot}
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/*.so.*
 /usr/lib64/gio/modules/libdconfsettings.so
+/usr/lib64/libdconf.so.1
+/usr/lib64/libdconf.so.1.0.0

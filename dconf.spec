@@ -4,7 +4,7 @@
 #
 Name     : dconf
 Version  : 0.26.0
-Release  : 3
+Release  : 4
 URL      : https://download.gnome.org/core/3.21/3.21.4/sources/dconf-0.26.0.tar.xz
 Source0  : https://download.gnome.org/core/3.21/3.21.4/sources/dconf-0.26.0.tar.xz
 Summary  : dconf client library
@@ -16,12 +16,19 @@ Requires: dconf-data
 Requires: dconf-doc
 BuildRequires : dbus-extras
 BuildRequires : docbook-xml
+BuildRequires : gcc-dev32
+BuildRequires : gcc-libgcc32
+BuildRequires : gcc-libstdc++32
 BuildRequires : gettext
+BuildRequires : glibc-dev32
+BuildRequires : glibc-libc32
 BuildRequires : glibc-staticdev
 BuildRequires : gtk-doc
 BuildRequires : gtk-doc-dev
 BuildRequires : libxslt-bin
 BuildRequires : perl(XML::Parser)
+BuildRequires : pkgconfig(32gio-unix-2.0)
+BuildRequires : pkgconfig(32glib-2.0)
 BuildRequires : pkgconfig(gio-unix-2.0)
 BuildRequires : pkgconfig(glib-2.0)
 
@@ -60,6 +67,18 @@ Provides: dconf-devel
 dev components for the dconf package.
 
 
+%package dev32
+Summary: dev32 components for the dconf package.
+Group: Default
+Requires: dconf-lib32
+Requires: dconf-bin
+Requires: dconf-data
+Requires: dconf-dev
+
+%description dev32
+dev32 components for the dconf package.
+
+
 %package doc
 Summary: doc components for the dconf package.
 Group: Documentation
@@ -77,14 +96,34 @@ Requires: dconf-data
 lib components for the dconf package.
 
 
+%package lib32
+Summary: lib32 components for the dconf package.
+Group: Default
+Requires: dconf-data
+
+%description lib32
+lib32 components for the dconf package.
+
+
 %prep
 %setup -q -n dconf-0.26.0
+pushd ..
+cp -a dconf-0.26.0 build32
+popd
 
 %build
 export LANG=C
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
+pushd ../build32/
+export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+export CFLAGS="$CFLAGS -m32"
+export CXXFLAGS="$CXXFLAGS -m32"
+export LDFLAGS="$LDFLAGS -m32"
+%configure --disable-static   --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
+make V=1  %{?_smp_mflags}
+popd
 %check
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
@@ -94,10 +133,20 @@ make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
 rm -rf %{buildroot}
+pushd ../build32/
+%make_install32
+if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
+then
+pushd %{buildroot}/usr/lib32/pkgconfig
+for i in *.pc ; do ln -s $i 32$i ; done
+popd
+fi
+popd
 %make_install
 
 %files
 %defattr(-,root,root,-)
+/usr/lib32/gio/modules/libdconfsettings.so
 
 %files bin
 %defattr(-,root,root,-)
@@ -120,6 +169,12 @@ rm -rf %{buildroot}
 /usr/include/dconf/dconf.h
 /usr/lib64/libdconf.so
 /usr/lib64/pkgconfig/dconf.pc
+
+%files dev32
+%defattr(-,root,root,-)
+/usr/lib32/libdconf.so
+/usr/lib32/pkgconfig/32dconf.pc
+/usr/lib32/pkgconfig/dconf.pc
 
 %files doc
 %defattr(-,root,root,-)
@@ -158,3 +213,8 @@ rm -rf %{buildroot}
 /usr/lib64/gio/modules/libdconfsettings.so
 /usr/lib64/libdconf.so.1
 /usr/lib64/libdconf.so.1.0.0
+
+%files lib32
+%defattr(-,root,root,-)
+/usr/lib32/libdconf.so.1
+/usr/lib32/libdconf.so.1.0.0

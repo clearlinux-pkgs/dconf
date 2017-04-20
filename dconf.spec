@@ -4,7 +4,7 @@
 #
 Name     : dconf
 Version  : 0.26.0
-Release  : 4
+Release  : 5
 URL      : https://download.gnome.org/core/3.21/3.21.4/sources/dconf-0.26.0.tar.xz
 Source0  : https://download.gnome.org/core/3.21/3.21.4/sources/dconf-0.26.0.tar.xz
 Summary  : dconf client library
@@ -87,6 +87,14 @@ Group: Documentation
 doc components for the dconf package.
 
 
+%package extras
+Summary: extras components for the dconf package.
+Group: Default
+
+%description extras
+extras components for the dconf package.
+
+
 %package lib
 Summary: lib components for the dconf package.
 Group: Libraries
@@ -112,7 +120,11 @@ cp -a dconf-0.26.0 build32
 popd
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
+export SOURCE_DATE_EPOCH=1492720157
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
@@ -121,17 +133,18 @@ export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 export CFLAGS="$CFLAGS -m32"
 export CXXFLAGS="$CXXFLAGS -m32"
 export LDFLAGS="$LDFLAGS -m32"
-%configure --disable-static   --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
+%configure --disable-static    --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
 make V=1  %{?_smp_mflags}
 popd
 %check
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
+export SOURCE_DATE_EPOCH=1492720157
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
@@ -146,7 +159,6 @@ popd
 
 %files
 %defattr(-,root,root,-)
-/usr/lib32/gio/modules/libdconfsettings.so
 
 %files bin
 %defattr(-,root,root,-)
@@ -208,6 +220,10 @@ popd
 /usr/share/gtk-doc/html/dconf/up-insensitive.png
 /usr/share/gtk-doc/html/dconf/up.png
 
+%files extras
+%defattr(-,root,root,-)
+/usr/lib32/gio/modules/libdconfsettings.so
+
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/gio/modules/libdconfsettings.so
@@ -216,5 +232,6 @@ popd
 
 %files lib32
 %defattr(-,root,root,-)
+%exclude /usr/lib32/gio/modules/libdconfsettings.so
 /usr/lib32/libdconf.so.1
 /usr/lib32/libdconf.so.1.0.0

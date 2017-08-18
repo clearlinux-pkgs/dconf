@@ -4,7 +4,7 @@
 #
 Name     : dconf
 Version  : 0.26.0
-Release  : 7
+Release  : 8
 URL      : https://download.gnome.org/sources/dconf/0.26/dconf-0.26.0.tar.xz
 Source0  : https://download.gnome.org/sources/dconf/0.26/dconf-0.26.0.tar.xz
 Summary  : dconf client library
@@ -124,7 +124,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1501002430
+export SOURCE_DATE_EPOCH=1503072573
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition "
 export FFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition "
@@ -148,7 +148,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1501002430
+export SOURCE_DATE_EPOCH=1503072573
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32

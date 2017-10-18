@@ -4,7 +4,7 @@
 #
 Name     : dconf
 Version  : 0.26.1
-Release  : 9
+Release  : 10
 URL      : https://download.gnome.org/sources/dconf/0.26/dconf-0.26.1.tar.xz
 Source0  : https://download.gnome.org/sources/dconf/0.26/dconf-0.26.1.tar.xz
 Summary  : dconf client library

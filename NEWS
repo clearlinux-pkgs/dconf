@@ -1,3 +1,69 @@
+Changes in dconf 0.30.0
+=======================
+
+None.
+
+Changes in dconf 0.29.2
+=======================
+
+ - Service: When corrupt GVDB files are found, they are now
+   transparently backed up and replaced with an empty database.
+   (Philip Withnall, !8)
+ - Replace all hard-coded /etc path with sysconfdir. This is useful for
+   JHBuild environments and systems that don't want to use /etc/dconf.
+   (Ting-Wei Lan; !21, #739229)
+ - Engine: Change overflow thresholds in subscription counts from
+   GMAXUINT32 to GMAXUINT (Daniel Playfair Cal; !20)
+ - Change meson flag used to build Gtk-Doc from enable-gtk-doc to
+   gtk_doc (Daniel Playfair Cal; !19)
+ - Declare libdconf_service as a dependency to fix the build in
+   massively parallelised environments (Emmanuele Bassi; !22)
+
+Changes in dconf 0.29.1
+=======================
+
+ - Engine: track in progress watch handles to avoid spurious changed
+   signals for the root path. Subscription requests are no longer sent
+   if the engine is already subscribed to the given path. In the case
+   that some value changes while a subscription request is in progress,
+   a changed signal is only sent for the path being subscribed to
+   instead of the root path. (Daniel Playfair Cal; !1, !5, #790640)
+
+ - Engine: fix deadlock which occured when using the engine from libsoup
+   within flatpak by extending the existing workaround for Glib !541, aka
+   #674885. GSocket and various other GObject types are now also
+   initialised in the main thread. (Owen Taylor; !15)
+
+ - Add transfer annotations to the GTK-Doc strings for functions in the
+   dconf_changeset_* and dconf_client_* namespaces (Xavier Claessens,
+   Philip Withnall; !9, #758903)
+
+ - Update GVDB subtree from GVDB master, containing mostly documentation
+   improvements (Philip Withnall; !17)
+
+ - dconf-update.vala: correct error message grammar (Kenyon Ralph; !6)
+
+ - Various meson related improvements (Iñigo Martínez; !11)
+
+ - Add GitLab CI (Philip Withnall; !10)
+
+ - Service: Port from the deprecated g_type_class_add_private() to
+   G_ADD_PRIVATE() (Philip Withnall; !7)
+
+ - Add Daniel Playfair Cal and Philip Withnall as maintainers (Philip
+   Withnall)
+
+
+Changes in dconf 0.28.0
+=======================
+
+ - Update README
+
+Changes in dconf 0.27.1
+=======================
+
+ - Port to meson build system (#784910)
+
 Changes in dconf 0.26.1
 ========================
 
@@ -407,12 +473,12 @@ Translations:
 
  - Arabic
  - Belarusian
- - Bengali 
+ - Bengali
  - Brazilian Portuguese
  - British English
  - Bulgarian
  - Catalan
- - Catalan (Valencian) 
+ - Catalan (Valencian)
  - Czech
  - Danish
  - Estonian

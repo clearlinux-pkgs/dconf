@@ -4,7 +4,7 @@
 #
 Name     : dconf
 Version  : 0.32.0
-Release  : 17
+Release  : 18
 URL      : https://download.gnome.org/sources/dconf/0.32/dconf-0.32.0.tar.xz
 Source0  : https://download.gnome.org/sources/dconf/0.32/dconf-0.32.0.tar.xz
 Summary  : Configuration database system
@@ -28,6 +28,7 @@ BuildRequires : glib-dev
 BuildRequires : glib-dev32
 BuildRequires : glibc-dev32
 BuildRequires : glibc-libc32
+BuildRequires : pkgconfig(bash-completion)
 BuildRequires : pkgconfig(vapigen)
 BuildRequires : vala
 
@@ -146,7 +147,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1552339409
+export SOURCE_DATE_EPOCH=1552340990
 export LDFLAGS="${LDFLAGS} -fno-lto"
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition "

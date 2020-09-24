@@ -4,7 +4,7 @@
 #
 Name     : dconf
 Version  : 0.38.0
-Release  : 23
+Release  : 24
 URL      : https://download.gnome.org/sources/dconf/0.38/dconf-0.38.0.tar.xz
 Source0  : https://download.gnome.org/sources/dconf/0.38/dconf-0.38.0.tar.xz
 Summary  : No detailed summary available

@@ -4,7 +4,7 @@
 #
 Name     : dconf
 Version  : 0.40.0
-Release  : 26
+Release  : 27
 URL      : https://download.gnome.org/sources/dconf/0.40/dconf-0.40.0.tar.xz
 Source0  : https://download.gnome.org/sources/dconf/0.40/dconf-0.40.0.tar.xz
 Summary  : No detailed summary available
